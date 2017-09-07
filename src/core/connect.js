@@ -9,15 +9,14 @@ export function mergeValidation(prevValidation, newValidation) {
   Object.keys(resValidation).forEach(k => {
     if (resValidation[k] == null) delete resValidation[k]
   })
-  console.log('resValidation',resValidation)
   return resValidation;
 }
 
 
-export default function ({ form, validate, asyncValidate, initialValues }) {
+export default function ({form, validate, asyncValidate, initialValues}) {
 
   return Component => connect(
-    state => ({formValues: state.msform[form]}),
+    state => ({formValues: state.msform[form], reduxState: state}),
     {
       formChanged,
       formReset
@@ -71,7 +70,6 @@ export default function ({ form, validate, asyncValidate, initialValues }) {
       // assign values
       let o = this._getFormValues()
       let r = {...o, ...val}
-      // console.log(r)
 
       return r
     }
@@ -100,10 +98,8 @@ export default function ({ form, validate, asyncValidate, initialValues }) {
       if ((showValidation || showValidation == null) && formValidation[name] != null) pr["error"] = formValidation[name]
 
       // skip unneded properties
-      if (skip)
-      {
-        if (Array.isArray(skip))
-        {
+      if (skip) {
+        if (Array.isArray(skip)) {
           // skip
           skip.forEach(p => delete pr[p])
         } else {
@@ -126,7 +122,15 @@ export default function ({ form, validate, asyncValidate, initialValues }) {
       this.formChanged(f)
     }
 
-    _getFormValues = () => this.props.formValues || {...initialValues, ...this.props.initialValues}
+    _getFormValues = () => {
+      return this.props.formValues || {
+          // initialProps from connectForm parameter
+          ...(typeof(initialValues) === 'function' ? initialValues(this.props.reduxState, this.props) : initialValues),
+          // initialValues from property sent higher
+          // not documented, not recommended way
+          ...this.props.initialValues
+        }
+    }
 
     render() {
       let {} = this.state

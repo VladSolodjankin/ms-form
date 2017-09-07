@@ -4,7 +4,7 @@
 formConnect options
 ```js
 
-let rest = {
+{
   // form name
   form,
 
@@ -13,14 +13,14 @@ let rest = {
 
   asyncValidate,
 
-  // initial values
+  // initial values: {...} or (state, props) => ({...})
   initialValues
 }
 ```
 
 Form gets props
 ```js
-let rest = {
+{
   // save form to state
   formChanged: this.formChanged,
   // reset form

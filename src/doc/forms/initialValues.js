@@ -32,5 +32,5 @@ class InitialValues extends React.Component {
 }
 
 export default formConnect(
-  {form:"initialValues", initialValues: {input:"hello", select:"2"}}
+  {form:"initialValues", initialValues: (state, props) => { return ({input:"hello", select:"2"}) }}
 )(InitialValues)
