@@ -13,7 +13,7 @@ export function mergeValidation(prevValidation, newValidation) {
 }
 
 
-export default function ({form, validate, asyncValidate, initialValues}) {
+export default function ({form, validate, initialValues}) {
 
   return Component => connect(
     state => ({formValues: state.msform[form], reduxState: state}),

@@ -4,14 +4,12 @@
 formConnect options
 ```js
 
-{
+const options = {
   // form name
   form,
 
   // validate function
   validate,
-
-  asyncValidate,
 
   // initial values: {...} or (state, props) => ({...})
   initialValues
@@ -20,7 +18,7 @@ formConnect options
 
 Form gets props
 ```js
-{
+const props = {
   // save form to state
   formChanged: this.formChanged,
   // reset form
