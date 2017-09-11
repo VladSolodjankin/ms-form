@@ -49,7 +49,7 @@ export default function ({form, validate, initialValues}) {
 
     /* get event and generate new form change change event */
     formGet = (...args) => {
-      if (args.length === 3 && Array.isArray(args[1])) {
+      if (args.length === 3 && args[2] && args[2].props) {
         return this.formGetOnSelected(...args)
       }
       return this.formGetOnChange(...args)
