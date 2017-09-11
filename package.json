@@ -6,7 +6,6 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
-    "react-scripts": "^1.0.13",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6"
   },
@@ -19,7 +18,9 @@
   },
   "description": "checkout [demo](https://maintstar.github.io/ms-form/build/)",
   "main": "src/core/index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "react-scripts": "^1.0.13"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Maintstar/ms-form.git"
