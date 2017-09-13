@@ -49,7 +49,7 @@ export default function ({form, validate, initialValues}) {
 
     /* get event and generate new form change change event */
     formGet = (...args) => {
-      if (args.length === 3 && args[2] && args[2].props) {
+      if (args.length === 4 && args[2] && args[2].props) {
         return this.formGetOnSelected(...args)
       }
       return this.formGetOnChange(...args)
@@ -74,8 +74,11 @@ export default function ({form, validate, initialValues}) {
       return r
     }
 
-    formGetOnSelected = (value, values, field) => {
-      return this.formGetOnChange(() => ({[field.props.name + "Id"]: value}))
+    formGetOnSelected = (valueId, value, field) => {
+      return this.formGetOnChange(() => ({
+        [field.props.name + "Id"]: valueId,
+        [field.props.name]: value}
+        ))
     }
 
     formField = (opts) => (name) => {
@@ -116,8 +119,8 @@ export default function ({form, validate, initialValues}) {
       this.formChanged(f)
     }
 
-    _defaultOnSelected = (value, values, fld) => {
-      let f = this.formGet(value, values, fld)
+    _defaultOnSelected = (valueId, value, fld, lastValueId) => {
+      let f = this.formGet(valueId, value, fld, lastValueId)
       // get formChanged
       this.formChanged(f)
     }
