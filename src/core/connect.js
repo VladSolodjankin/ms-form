@@ -74,9 +74,9 @@ export default function ({form, validate, initialValues}) {
       return r
     }
 
-    formGetOnSelected = (valueId, value, field) => {
+    formGetOnSelected = (value, text, field) => {
       return this.formGetOnChange(() => ({
-        [field.props.name + "Id"]: valueId,
+        [field.props.name + "Text"]: text,
         [field.props.name]: value}
         ))
     }
@@ -94,8 +94,8 @@ export default function ({form, validate, initialValues}) {
         // fill value property
         value: formValues[name] || ""
       }
-      // fill valueId property, MS field specific
-      if (formValues[name + "Id"] != null) pr["valueId"] = formValues[name + "Id"]
+      // fill text property, MS field specific
+      if (formValues[name + "Text"] != null) pr["text"] = formValues[name + "Text"]
 
       // send error prop to field
       if ((showValidation || showValidation == null) && formValidation[name] != null) pr["error"] = formValidation[name]
@@ -119,8 +119,8 @@ export default function ({form, validate, initialValues}) {
       this.formChanged(f)
     }
 
-    _defaultOnSelected = (valueId, value, fld, lastValueId) => {
-      let f = this.formGet(valueId, value, fld, lastValueId)
+    _defaultOnSelected = (value, text, fld, lastValue) => {
+      let f = this.formGet(value, text, fld, lastValue)
       // get formChanged
       this.formChanged(f)
     }
