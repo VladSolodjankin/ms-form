@@ -141,7 +141,7 @@ export default function ({form, validate, initialValues}) {
 
       let formValues = this._getFormValues()
 
-      let formValidation = this.formValidation = {...(validate && validate(formValues)), ...this.state.asyncValidation}
+      let formValidation = this.formValidation = {...(validate && validate(formValues, props)), ...this.state.asyncValidation}
       let formIsValid = this.formIsValid = Object.keys(formValidation).length === 0
 
 
