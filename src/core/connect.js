@@ -81,36 +81,38 @@ export default function ({form, validate, initialValues}) {
         ))
     }
 
-    formField = (opts) => (name) => {
+    formField = (opts) => {
       let formValidation = this.formValidation;
       let formValues = this._getFormValues()
-
       let {showValidation, onChange, onSelected, skip} = opts
 
-      let pr = {
-        name,
-        onChange: onChange || this._defaultOnChange,
-        onSelected: onSelected || this._defaultOnSelected,
-        // fill value property
-        value: formValues[name] || ""
-      }
-      // fill text property, MS field specific
-      if (formValues[name + "Text"] != null) pr["text"] = formValues[name + "Text"]
+      return (name) => {
 
-      // send error prop to field
-      if ((showValidation || showValidation == null) && formValidation[name] != null) pr["error"] = formValidation[name]
-
-      // skip unneded properties
-      if (skip) {
-        if (Array.isArray(skip)) {
-          // skip
-          skip.forEach(p => delete pr[p])
-        } else {
-          console.error("'skip' option, should be an array")
+        let pr = {
+          name,
+          onChange: onChange || this._defaultOnChange,
+          onSelected: onSelected || this._defaultOnSelected,
+          // fill value property
+          value: formValues[name] || ""
         }
-      }
+        // fill text property, MS field specific
+        if (formValues[name + "Text"] != null) pr["text"] = formValues[name + "Text"]
 
-      return pr
+        // send error prop to field
+        if ((showValidation || showValidation == null) && formValidation[name] != null) pr["error"] = formValidation[name]
+
+        // skip unneded properties
+        if (skip) {
+          if (Array.isArray(skip)) {
+            // skip
+            skip.forEach(p => delete pr[p])
+          } else {
+            console.error("'skip' option, should be an array")
+          }
+        }
+
+        return pr
+      }
     }
 
     _defaultOnChange = (ev) => {
