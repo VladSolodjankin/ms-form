@@ -16,7 +16,11 @@ export function mergeValidation(prevValidation, newValidation) {
 export default function ({form, validate, initialValues}) {
 
   return Component => connect(
-    state => ({formValues: state.msform[form], reduxState: state}),
+    (state, props) => ({
+      form: form || props.form,
+      formValues: state.msform[form || props.form],
+      reduxState: state
+    }),
     {
       formChanged,
       formReset
@@ -34,11 +38,11 @@ export default function ({form, validate, initialValues}) {
 
     // method to use when you want to save,
     formChanged = (values) => {
-      this.props.formChanged(form, values)
+      this.props.formChanged(this.props.form, values)
     }
 
     formReset = (otherForm) => {
-      this.props.formReset(otherForm || form)
+      this.props.formReset(otherForm || this.props.form)
     }
 
     asyncValidationResult = (asyncValidation) => {
